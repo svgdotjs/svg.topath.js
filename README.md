@@ -22,7 +22,7 @@ var rectPath = rect.toPath()
 The newly created path will be inserted in the element stack right after the original.
 
 It is also possible to replace the original with the path conversion.
-Simply passe `true` as the fist argument to the `toPath` method:
+Simply pass `true` as the fist argument to the `toPath` method:
 
 ```javascript
 rect = rect.toPath(true)
