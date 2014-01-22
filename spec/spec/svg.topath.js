@@ -46,6 +46,12 @@ describe('toPath()', function() {
       expect(rect.toPath().attr('d')).not.toMatch(/A/ig)
     })
 
+    it('caps radii to half width and height', function() {
+      rect.attr({ rx: 3000, ry: 1000 })
+      expect(rect.width()).toBe(200)
+      expect(rect.height()).toBe(100)
+    })
+
   })
 
   describe('from circle', function() {

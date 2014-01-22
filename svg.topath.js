@@ -1,4 +1,4 @@
-// svg.topath.js 0.1 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
+// svg.topath.js 0.2 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
 	SVG.extend(SVG.Shape, {
@@ -22,6 +22,8 @@
 					if (ry < 0) ry = 0
 					rx = rx || ry
 					ry = ry || rx
+					if (rx > w / 2) rx = w / 2
+					if (ry > h / 2) ry = h / 2
 					
 					if (rx && ry) {
 						/* if there are round corners */
