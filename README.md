@@ -51,3 +51,5 @@ rectPath.original // -> returns rect
 ## Important
 This plugin is still under development and will be improved in the coming months.
 Please report issues and suggestions are welcome too.
+
+This plugin requires svg.js v1.0rc1 or higher.

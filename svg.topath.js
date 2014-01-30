@@ -1,4 +1,4 @@
-// svg.topath.js 0.2 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
+// svg.topath.js 0.3 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
 	SVG.extend(SVG.Shape, {
@@ -78,8 +78,8 @@
 
 					d = []
 
-					for (var i = 0; i < this.points.value.length; i++)
-						d.push((i == 0 ? 'M' : 'L') + this.points.value[i][0] + ' ' + this.points.value[i][1])
+					for (var i = 0; i < this.array.value.length; i++)
+						d.push((i == 0 ? 'M' : 'L') + this.array.value[i][0] + ' ' + this.array.value[i][1])
 
 					if (this.type == 'polygon')
 						d.push('Z')
