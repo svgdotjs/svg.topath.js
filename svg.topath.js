@@ -123,7 +123,7 @@
 					}
 					break;
 				default: 
-					console.log('SVG toPath got unexpected type ' + type, this)
+					console.log('SVG toPath got unexpected type ' + this.type, this)
 					break;
 			}
 
