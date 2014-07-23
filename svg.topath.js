@@ -1,7 +1,7 @@
 // svg.topath.js 0.3 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
-	SVG.extend(SVG.Shape, {
+	SVG.extend(SVG.Element, {
 		// Convert element to path
 		toPath: function(replace) {
 			var	w, h, rx, ry, d, path
@@ -110,6 +110,21 @@
 					x = box.x
 					y = box.y
 				break
+				case 'g':
+				case 'svg':
+					// cloning children array so that we don't touch the paths we create
+					var children = this.node.children;
+					var childrenClone = [];
+					for (var i = 0; i < children.length; i++) {
+						childrenClone.push(children[i].instance);
+					}
+					for (var i in childrenClone) {
+						childrenClone[i].toPath(replace);
+					}
+					break;
+				default: 
+					console.log('SVG toPath got unexpected type ' + type, this)
+					break;
 			}
 
 			if (Array.isArray(d)) {
@@ -122,8 +137,8 @@
 				/* insert interpreted path after original */
 				this.after(path)
 			}
-
-			if (path) {
+			
+			if (this instanceof SVG.Shape && path) {
 				/* store original details in data attributes */
 				path
 					.data('topath-type', this.type)
