@@ -361,12 +361,12 @@ describe('toPath()', function() {
     it('generates paths', function() {
 			nestedSVG.toPath();
 			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
-																								children:[
-																									{type:"polyline"},
-																									{type:"path"},
-																									{type:"rect"},
-																									{type:"path"}
-																								]});
+																										children:[
+																											{type:"polyline"},
+																											{type:"path"},
+																											{type:"rect"},
+																											{type:"path"}
+																										]});
     })
 		it('generates paths in subgroups', function() {
 			subgroup = nestedSVG.group();
@@ -374,16 +374,16 @@ describe('toPath()', function() {
 			
 			nestedSVG.toPath();
 			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
-																								children:[
-																									{type:"polyline"},
-																									{type:"path"},
-																									{type:"rect"},
-																									{type:"path"},
-																									{type:"g",children:[
-																										{type:"ellipse"},
-																										{type:"path"},
-																									]}
-																								]});
+																										children:[
+																											{type:"polyline"},
+																											{type:"path"},
+																											{type:"rect"},
+																											{type:"path"},
+																											{type:"g",children:[
+																												{type:"ellipse"},
+																												{type:"path"},
+																											]}
+																										]});
     })
 		it('generates paths in subgroups and replaces', function() {
 			subgroup = nestedSVG.group();
@@ -391,12 +391,28 @@ describe('toPath()', function() {
 			
 			nestedSVG.toPath(true);
 			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
+																										children:[
+																											{type:"path"},
+																											{type:"path"},
+																											{type:"g",children:[
+																												{type:"path"}
+																											]}
+																										]});
+    })
+		it('generates paths and ignores unsupported types', function() {
+			// create a node that toPath doesn't support
+			draw.defs()
+			draw.toPath();
+			expect(getStructure(draw.node)).toEqual({	type:"svg",
 																								children:[
-																									{type:"path"},
-																									{type:"path"},
-																									{type:"g",children:[
+																									{type:"svg",
+																									children:[
+																										{type:"polyline"},
+																										{type:"path"},
+																										{type:"rect"},
 																										{type:"path"}
-																									]}
+																									]},
+																									{type:"defs"}
 																								]});
     })
   })

@@ -1,7 +1,7 @@
 // svg.topath.js 0.3 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
-	SVG.extend(SVG.Element, {
+	SVG.extend(SVG.Shape, {
 		// Convert element to path
 		toPath: function(replace) {
 			var	w, h, rx, ry, d, path
@@ -110,20 +110,8 @@
 					x = box.x
 					y = box.y
 				break
-				case 'g':
-				case 'svg':
-					// cloning children array so that we don't touch the paths we create
-					var children = this.node.children;
-					var childrenClone = [];
-					for (var i = 0; i < children.length; i++) {
-						childrenClone.push(children[i].instance);
-					}
-					for (var i in childrenClone) {
-						childrenClone[i].toPath(replace);
-					}
-					break;
 				default: 
-					console.log('SVG toPath got unexpected type ' + this.type, this)
+					console.log('SVG toPath got unsupported type ' + this.type, this)
 					break;
 			}
 
@@ -152,6 +140,32 @@
 			}
 
 			return path
+		}
+
+	})
+	SVG.extend(SVG.Parent, {
+		// Convert element to path
+		toPath: function(replace) {
+			
+			switch(this.type) {
+				case 'g':
+				case 'svg':
+					// cloning children array so that we don't touch the paths we create
+					var children = this.node.children;
+					var childrenClone = [];
+					for (var i = 0; i < children.length; i++) {
+						childrenClone.push(children[i].instance);
+					}
+					for (var i in childrenClone) {
+//						console.log("  child:",childrenClone[i].type,childrenClone[i]);
+						childrenClone[i].toPath(replace);
+					}
+					break;
+				default: 
+					console.log('SVG toPath got unsupported type ' + this.type, this)
+					break;
+			}
+			return this
 		}
 
 	})
