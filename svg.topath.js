@@ -110,6 +110,9 @@
 					x = box.x
 					y = box.y
 				break
+				default: 
+					console.log('SVG toPath got unsupported type ' + this.type, this)
+					break;
 			}
 
 			if (Array.isArray(d)) {
@@ -122,8 +125,8 @@
 				/* insert interpreted path after original */
 				this.after(path)
 			}
-
-			if (path) {
+			
+			if (this instanceof SVG.Shape && path) {
 				/* store original details in data attributes */
 				path
 					.data('topath-type', this.type)
@@ -137,6 +140,32 @@
 			}
 
 			return path
+		}
+
+	})
+	SVG.extend(SVG.Parent, {
+		// Convert element to path
+		toPath: function(replace) {
+			
+			switch(this.type) {
+				case 'g':
+				case 'svg':
+					// cloning children array so that we don't touch the paths we create
+					var children = this.node.children;
+					var childrenClone = [];
+					for (var i = 0; i < children.length; i++) {
+						childrenClone.push(children[i].instance);
+					}
+					for (var i in childrenClone) {
+//						console.log("  child:",childrenClone[i].type,childrenClone[i]);
+						childrenClone[i].toPath(replace);
+					}
+					break;
+				default: 
+					console.log('SVG toPath got unsupported type ' + this.type, this)
+					break;
+			}
+			return this
 		}
 
 	})
