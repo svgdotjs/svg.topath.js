@@ -277,65 +277,55 @@ describe('toPath()', function() {
   })
 	
 	describe('recursive from group', function() {
-    var group;
+    var group
+
     beforeEach(function() {
-      group = draw.group();
-			group.polyline('0,0 100,50 50,100').attr({id:'p'});
-			group.rect(200, 100).attr({id:'r'});
+      group = draw.group()
+			group.polyline('0,0 100,50 50,100').attr({ id: 'p' })
+			group.rect(200, 100).attr({ id: 'r' })
     })
 		
-		function getStructure(element){
-			var structure = {type:element.tagName};
-			if(element.children.length > 0) {
-				structure.children = [];
-				for(var i=0;i<element.children.length;i++) {
-					var child = element.children[i];
-					structure.children.push(getStructure(child))
-				}
-			}
-			return structure;
-		}
-		
     it('generates paths', function() {
-			group.toPath();
-			expect(getStructure(group.node)).toEqual({type:"g",
+			group.toPath()
+			expect(getStructure(group.node)).toEqual({type: 'g',
 																								children:[
-																									{type:"polyline"},
-																									{type:"path"},
-																									{type:"rect"},
-																									{type:"path"}
+																									{ type: 'polyline' },
+																									{ type: 'path' },
+																									{ type: 'rect' },
+																									{ type: 'path' }
 																								]});
     })
 		it('generates paths in subgroups', function() {
-			subgroup = group.group();
-			var circle = subgroup.circle(100);
+			subgroup = group.group()
+			var circle = subgroup.circle(100)
 			
-			group.toPath();
-			expect(getStructure(group.node)).toEqual({type:"g",
+			group.toPath()
+      console.log(group)
+			expect(getStructure(group.node)).toEqual({type:'g',
 																								children:[
-																									{type:"polyline"},
-																									{type:"path"},
-																									{type:"rect"},
-																									{type:"path"},
-																									{type:"g",children:[
-																										{type:"ellipse"},
-																										{type:"path"},
+																									{ type:'polyline' }
+																								, { type:'path' }
+																								, { type:'rect' }
+																								, { type:'path' }
+																								, { type:'g',children:[
+																										{ type:'ellipse' }
+																									, { type:'path' }
 																									]}
-																								]});
+																								]})
     })
 		it('generates paths in subgroups and replaces', function() {
 			subgroup = group.group();
 			var circle = subgroup.circle(100);
 			
 			group.toPath(true);
-			expect(getStructure(group.node)).toEqual({type:"g",
+			expect(getStructure(group.node)).toEqual({type:'g',
 																								children:[
-																									{type:"path"},
-																									{type:"path"},
-																									{type:"g",children:[
-																										{type:"path"}
+																									{type:'path'},
+																									{type:'path'},
+																									{type:'g',children:[
+																										{type:'path'}
 																									]}
-																								]});
+																								]})
     })
   })
 	describe('recursive from svg', function() {
@@ -360,12 +350,12 @@ describe('toPath()', function() {
 		
     it('generates paths', function() {
 			nestedSVG.toPath();
-			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
+			expect(getStructure(nestedSVG.node)).toEqual({type:'svg',
 																										children:[
-																											{type:"polyline"},
-																											{type:"path"},
-																											{type:"rect"},
-																											{type:"path"}
+																											{type:'polyline'},
+																											{type:'path'},
+																											{type:'rect'},
+																											{type:'path'}
 																										]});
     })
 		it('generates paths in subgroups', function() {
@@ -373,15 +363,15 @@ describe('toPath()', function() {
 			var circle = subgroup.circle(100);
 			
 			nestedSVG.toPath();
-			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
+			expect(getStructure(nestedSVG.node)).toEqual({type:'svg',
 																										children:[
-																											{type:"polyline"},
-																											{type:"path"},
-																											{type:"rect"},
-																											{type:"path"},
-																											{type:"g",children:[
-																												{type:"ellipse"},
-																												{type:"path"},
+																											{type:'polyline'},
+																											{type:'path'},
+																											{type:'rect'},
+																											{type:'path'},
+																											{type:'g',children:[
+																												{type:'ellipse'},
+																												{type:'path'},
 																											]}
 																										]});
     })
@@ -390,12 +380,12 @@ describe('toPath()', function() {
 			var circle = subgroup.circle(100);
 			
 			nestedSVG.toPath(true);
-			expect(getStructure(nestedSVG.node)).toEqual({type:"svg",
+			expect(getStructure(nestedSVG.node)).toEqual({type:'svg',
 																										children:[
-																											{type:"path"},
-																											{type:"path"},
-																											{type:"g",children:[
-																												{type:"path"}
+																											{type:'path'},
+																											{type:'path'},
+																											{type:'g',children:[
+																												{type:'path'}
 																											]}
 																										]});
     })
@@ -403,16 +393,16 @@ describe('toPath()', function() {
 			// create a node that toPath doesn't support
 			draw.defs()
 			draw.toPath();
-			expect(getStructure(draw.node)).toEqual({	type:"svg",
+			expect(getStructure(draw.node)).toEqual({	type:'svg',
 																								children:[
-																									{type:"svg",
+																									{type:'svg',
 																									children:[
-																										{type:"polyline"},
-																										{type:"path"},
-																										{type:"rect"},
-																										{type:"path"}
+																										{type:'polyline'},
+																										{type:'path'},
+																										{type:'rect'},
+																										{type:'path'}
 																									]},
-																									{type:"defs"}
+																									{type:'defs'}
 																								]});
     })
   })

@@ -1,4 +1,4 @@
-// svg.topath.js 0.3 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
+// svg.topath.js 0.4 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
 	SVG.extend(SVG.Shape, {
@@ -17,7 +17,7 @@
 					rx = this.attr('rx')
 					ry = this.attr('ry')
 
-					/* normalise radius values, just like the original does it (or should do) */
+					// normalise radius values, just like the original does it (or should do)
 					if (rx < 0) rx = 0
 					if (ry < 0) ry = 0
 					rx = rx || ry
@@ -26,7 +26,7 @@
 					if (ry > h / 2) ry = h / 2
 					
 					if (rx && ry) {
-						/* if there are round corners */
+						// if there are round corners
 						d = [
 							'M' + rx + ' ' + y
 						, 'H' + (w - rx)
@@ -40,7 +40,7 @@
 						, 'z'
 						]
 					} else {
-						/* no round corners, no need to draw arcs */
+						// no round corners, no need to draw arcs
 						d = [
 							'M' + x + ' ' + y
 						, 'H' + w
@@ -112,27 +112,27 @@
 				break
 				default: 
 					console.log('SVG toPath got unsupported type ' + this.type, this)
-					break;
+				break
 			}
 
 			if (Array.isArray(d)) {
-				/* create path element */
+				// create path element
 				path = this.parent
 					.path(d.join(''), true)
 					.move(x + trans.x, y + trans.y)
 					.attr(normaliseAttributes(this.attr()))
 
-				/* insert interpreted path after original */
+				// insert interpreted path after original
 				this.after(path)
 			}
 			
 			if (this instanceof SVG.Shape && path) {
-				/* store original details in data attributes */
+				// store original details in data attributes
 				path
 					.data('topath-type', this.type)
 					.data('topath-id', this.attr('id'))
 
-				/* remove original if required */
+				// remove original if required
 				if (replace === true)
 					this.remove()
 				else
@@ -143,31 +143,20 @@
 		}
 
 	})
-	SVG.extend(SVG.Parent, {
-		// Convert element to path
-		toPath: function(replace) {
-			
-			switch(this.type) {
-				case 'g':
-				case 'svg':
-					// cloning children array so that we don't touch the paths we create
-					var children = this.node.children;
-					var childrenClone = [];
-					for (var i = 0; i < children.length; i++) {
-						childrenClone.push(children[i].instance);
-					}
-					for (var i in childrenClone) {
-//						console.log("  child:",childrenClone[i].type,childrenClone[i]);
-						childrenClone[i].toPath(replace);
-					}
-					break;
-				default: 
-					console.log('SVG toPath got unsupported type ' + this.type, this)
-					break;
-			}
-			return this
-		}
 
+	SVG.extend(SVG.Parent, {
+		// Recruisive path conversion
+		toPath: function(replace) {
+			// cloning children array so that we don't touch the paths we create
+      var children = [].slice.call(this.children())
+
+      // convert top paths
+      for (var i = children.length - 1; i >= 0; i--)
+        if (typeof children[i].toPath === 'function')
+          children[i].toPath(sample, replace)
+      
+      return this
+		}
 	})
 
 	// Normalise attributes
