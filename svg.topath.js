@@ -5,11 +5,12 @@
 		// Convert element to path
 		toPath: function(replace) {
 			var	w, h, rx, ry, d, path
-				, trans = this.trans
+				, trans = this.transform()
 				, box = this.bbox()
 				, x = 0
 				, y = 0
-			
+				, pointArray
+
 			switch(this.type) {
 				case 'rect':
 					w  = this.attr('width')
@@ -24,7 +25,7 @@
 					ry = ry || rx
 					if (rx > w / 2) rx = w / 2
 					if (ry > h / 2) ry = h / 2
-					
+
 					if (rx && ry) {
 						// if there are round corners
 						d = [
@@ -53,7 +54,7 @@
 
 					x = this.attr('x')
 					y = this.attr('y')
-					
+
 				break
 				case 'circle':
 				case 'ellipse':
@@ -76,10 +77,12 @@
 				case 'polyline':
 					this.move(0,0)
 
+					pointArray = this.array().value
+
 					d = []
 
-					for (var i = 0; i < this.array.value.length; i++)
-						d.push((i == 0 ? 'M' : 'L') + this.array.value[i][0] + ' ' + this.array.value[i][1])
+					for (var i = 0, len = pointArray.length; i < len; i++)
+						d.push((i == 0 ? 'M' : 'L') + pointArray[i][0] + ' ' + pointArray[i][1])
 
 					if (this.type == 'polygon')
 						d.push('Z')
@@ -110,14 +113,14 @@
 					x = box.x
 					y = box.y
 				break
-				default: 
+				default:
 					console.log('SVG toPath got unsupported type ' + this.type, this)
 				break
 			}
 
 			if (Array.isArray(d)) {
 				// create path element
-				path = this.parent
+				path = this.parent()
 					.path(d.join(''), true)
 					.move(x + trans.x, y + trans.y)
 					.attr(normaliseAttributes(this.attr()))
@@ -125,7 +128,7 @@
 				// insert interpreted path after original
 				this.after(path)
 			}
-			
+
 			if (this instanceof SVG.Shape && path) {
 				// store original details in data attributes
 				path
@@ -154,7 +157,7 @@
       for (var i = children.length - 1; i >= 0; i--)
         if (typeof children[i].toPath === 'function')
           children[i].toPath(sample, replace)
-      
+
       return this
 		}
 	})
