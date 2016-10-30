@@ -1,2 +1,9 @@
+node_modules/
 bower_components/
 examples.html
+
+# Visual Studio Code Files
+.vscode/
+jsconfig.json
+typings.json
+typings/

@@ -1,7 +1,7 @@
 {
   "name": "svg.topath.js",
   "main": "svg.topath.js",
-  "homepage": "https://github.com/wout/svg.topath.js",
+  "homepage": "https://github.com/svgdotjs/svg.topath.js",
   "authors": [
     "Wout Fierens <wout@woutfierens.com>"
   ],
