@@ -1,6 +1,6 @@
 # svg.topath.js
 
-This is a plugin for the [svg.js](http://svgjs.com) library to convert any other shape to a path.
+This is a plugin for the [svg.js](https://svgdotjs.github.io/) library to convert any other shape to a path.
 
 Svg.topath.js is licensed under the terms of the MIT License.
 
