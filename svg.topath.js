@@ -119,10 +119,16 @@
 			}
 
 			if (Array.isArray(d)) {
+				var mx = x;
+				var my = y;
+				if (trans != null) {
+					mx = mx + trans.x;
+					my = my + trans.y;
+				}
 				// create path element
 				path = this.parent()
 					.path(d.join(''), true)
-					.move(x + trans.x, y + trans.y)
+					.move(mx, my)
 					.attr(normaliseAttributes(this.attr()))
 
 				// insert interpreted path after original
