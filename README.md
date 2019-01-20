@@ -5,6 +5,12 @@ This is a plugin for the [svg.js](https://svgdotjs.github.io/) library to conver
 svg.topath.js is licensed under the terms of the MIT License.
 
 
+## Install
+
+```sh
+npm install @svgdotjs/svg.topath.js
+```
+
 ## Usage
 
 Include this plugin after including svg.js in your html document
