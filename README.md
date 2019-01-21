@@ -29,7 +29,7 @@ var rectPath = rect.toPath()
 The newly created path will **replace** the original shape by default.
 If you don't want your shape to be replaced, use `toPath(false)`.
 
-The new path is given back and can be added to the document later:
+The new path is returned and can be added to the document later:
 
 ```javascript
 rect = rect.toPath(false).insertAfter(rect)
