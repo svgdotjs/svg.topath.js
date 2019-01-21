@@ -1,7 +1,6 @@
 /* global describe, beforeEach, afterEach, it, expect, draw, SVG */
 
 window.draw = SVG().addTo('#canvas')
-const isPath = jasmine.objectContaining({type: 'path'})
 
 describe('toPath()', function () {
 
@@ -292,7 +291,12 @@ describe('toPath()', function () {
     var path, rect
 
     beforeEach(function () {
-      rect = draw.rect(200, 100).fill({ color: '#f06', opacity: 0.5 }).opacity(0.8).stroke({ color: '#ff6', opacity: 1, width: 5 })
+      rect = draw.rect(200, 100)
+        .fill({ color: '#f06', opacity: 0.5 })
+        .stroke({ color: '#ff6', opacity: 1, width: 5 })
+        .opacity(0.8)
+        .scale(2, 0, 0)
+
       path = rect.toPath()
     })
 
@@ -312,7 +316,6 @@ describe('toPath()', function () {
     })
 
     it('transform is transferred', function () {
-      path.scale(2, 0, 0)
       expect(path.transform('scaleX')).toBe(2)
     })
 
