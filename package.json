@@ -1,6 +1,6 @@
 {
   "name": "@svgdotjs/svg.topath.js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An extension for svg.js to convert shapes to paths",
   "main": "svg.topath.node.js",
   "unpkg": "dist/svg.topath.min.js",
@@ -24,9 +24,6 @@
     }
   ],
   "homepage": "https://github.com/svgdotjs/svg.topath.js",
-  "files": [
-    "dist/"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/svgdotjs/svg.topath.js.git"
