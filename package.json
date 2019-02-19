@@ -1,17 +1,18 @@
 {
   "name": "@svgdotjs/svg.topath.js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "An extension for svg.js to convert shapes to paths",
   "main": "svg.topath.node.js",
   "unpkg": "dist/svg.topath.min.js",
   "jsdelivr": "dist/svg.topath.min.js",
-  "browser": "dist/svg.topath.min.js",
+  "browser": "src/svg.topath.js",
   "module": "src/svg.topath.js",
   "keywords": [
     "svg.js"
   ],
   "bugs": "https://github.com/svgdotjs/svg.topath.js/issues",
   "license": "MIT",
+  "typings": "./svg.topath.js.d.ts",
   "author": {
     "name": "Wout Fierens"
   },
