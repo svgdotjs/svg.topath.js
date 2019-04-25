@@ -1,12 +1,17 @@
 {
   "name": "@svgdotjs/svg.topath.js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "An extension for svg.js to convert shapes to paths",
-  "main": "svg.topath.node.js",
+  "main": "dist/svg.topath.node.js",
   "unpkg": "dist/svg.topath.min.js",
   "jsdelivr": "dist/svg.topath.min.js",
   "browser": "src/svg.topath.js",
   "module": "src/svg.topath.js",
+  "files": [
+    "/dist",
+    "/src",
+    "/svg.topath.js.d.ts"
+  ],
   "keywords": [
     "svg.js"
   ],
