@@ -3,11 +3,13 @@ import { Path, Shape, extend } from '@svgdotjs/svg.js'
 
 // Normalise attributes
 const normaliseAttributes = (attr) => {
+  const normalised = {}
+
   for (const a in attr) {
-    if (!/fill|stroke|opacity|transform/.test(a)) { delete attr[a] }
+    if (/^(fill|stroke|opacity|transform)/.test(a)) { normalised[a] = attr[a] }
   }
 
-  return attr
+  return normalised
 }
 
 extend(Shape, {
@@ -17,14 +19,12 @@ extend(Shape, {
 
     switch (this.type) {
     case 'rect': {
-      let {
-        width: w,
-        height: h,
-        rx,
-        ry,
-        x,
-        y
-      } = this.attr(['width', 'height', 'rx', 'ry', 'x', 'y'])
+      const w = this.attr('width') || 0
+      const h = this.attr('height') || 0
+      let rx = this.attr('rx') || 0
+      let ry = this.attr('ry') || 0
+      const x = this.attr('x') || 0
+      const y = this.attr('y') || 0
 
       // normalise radius values, just like the original does it (or should do)
       if (rx < 0) rx = 0
@@ -65,9 +65,10 @@ extend(Shape, {
     }
     case 'circle':
     case 'ellipse': {
-      let rx = this.rx()
-      let ry = this.ry()
-      let { cx, cy } = this.attr(['cx', 'cy'])
+      const rx = this.rx() || 0
+      const ry = this.ry() || 0
+      const cx = this.attr('cx') || 0
+      const cy = this.attr('cy') || 0
 
       d = [
         ['M', cx - rx, cy],

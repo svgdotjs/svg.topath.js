@@ -39,6 +39,7 @@
     "fix": "npx eslint ./src --fix",
     "lint": "npx eslint ./src",
     "rollup": "npx rollup -c .config/rollup.config.js",
+    "test": "node --test \"spec/node/*.test.*\"",
     "zip": "zip -j dist/svg.topath.js.zip -- LICENSE README.md dist/svg.topath.js dist/svg.topath.js.map dist/svg.topath.min.js dist/svg.topath.min.js.map",
     "prepublishOnly": "rm -rf ./dist && npm run build",
     "postpublish": "npm run zip"
@@ -71,9 +72,10 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^4.0.2",
     "rollup-plugin-uglify": "^6.0.1",
-    "rollup-plugin-uglify-es": "0.0.1"
+    "rollup-plugin-uglify-es": "0.0.1",
+    "svgdom": "^0.1.29"
   },
   "dependencies": {
-    "@svgdotjs/svg.js": "^3.0.10"
+    "@svgdotjs/svg.js": "^3.2.8"
   }
 }
