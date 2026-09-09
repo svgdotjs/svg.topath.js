@@ -1,14 +1,19 @@
 import { Path, Shape, extend } from '@svgdotjs/svg.js'
 
-// Normalise attributes
+// Only presentation attributes are transferred to the new element. The regex
+// matches the attribute itself and everything derived from it (`stroke-width`,
+// `fill-opacity`, ...) but not attributes which only contain the name
+// (`data-fill`) or geometry (`width`, `x`, `points`, ...)
 const normaliseAttributes = (attr) => {
-  for (const a in attr) {
-    if (!/fill|stroke|opacity|transform/.test(a)) {
-      delete attr[a]
+  const normalised = {}
+
+  for (const key in attr) {
+    if (/^(fill|stroke|opacity|transform)(-|$)/.test(key)) {
+      normalised[key] = attr[key]
     }
   }
 
-  return attr
+  return normalised
 }
 
 extend(Shape, {
