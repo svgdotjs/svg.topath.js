@@ -4,12 +4,20 @@ This is a plugin for the [svg.js](https://svgdotjs.github.io/) library to conver
 
 svg.topath.js is licensed under the terms of the MIT License.
 
-
 ## Install
 
 ```sh
 npm install @svgdotjs/svg.topath.js
 ```
+
+Or as a classic script (global build), directly in a web page after the SVG.js library:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js/dist/svg.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.topath.js/dist/svg.topath.js"></script>
+```
+
+A bundle is also attached to every [release](https://github.com/svgdotjs/svg.topath.js/releases).
 
 ## Usage
 
