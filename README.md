@@ -4,6 +4,8 @@ This is a plugin for the [svg.js](https://svgdotjs.github.io/) library to conver
 
 svg.topath.js is licensed under the terms of the MIT License.
 
+It requires svg.js v3 (`@svgdotjs/svg.js` `^3.2.4`).
+
 
 ## Install
 
@@ -34,3 +36,14 @@ The new path is returned and can be added to the document later:
 ```javascript
 rect = rect.toPath(false).insertAfter(rect)
 ```
+
+## Development
+
+```sh
+npm install
+npm test
+npm run lint
+npm run build
+```
+
+`npm run build` produces the UMD build in `dist/` via vite.
