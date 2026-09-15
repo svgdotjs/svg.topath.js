@@ -1,6 +1,6 @@
 {
   "name": "@svgdotjs/svg.topath.js",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "An extension for svg.js to convert shapes to paths",
   "type": "module",
   "packageManager": "pnpm@11.26.0",
